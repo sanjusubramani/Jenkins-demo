@@ -1,0 +1,30 @@
+pipeline {
+    agent any 
+    environment {
+        DOCKER_IMAGE = "sanju2024/nginx-custom:latest"
+    }
+    stages {
+        stage('Pull Nginx Image') {
+            steps {
+                echo "Pulling the official nginx image"
+                sh 'docker pull nginx:latest'
+            }
+        }
+        stage('Tag Image') {
+            steps {
+                echo "Tagging the nginx image"
+                sh 'docker tag nginx:latest ${DOCKER_IMAGE}'
+            }
+        }
+        stage('Push to DockerHub') {
+            steps {
+                scripts {
+                    echo "Pushing the image to DockerHub"
+                    withDocjerRegistry([url: 'https://index.docker.io/v1/', credentialsId: 'Docker-credential']) {
+                        sh 'dockcer push ${DOCKER_IMAGE}'
+                    }
+                }
+            }
+        }
+    }
+}
