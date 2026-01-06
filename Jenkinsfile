@@ -24,7 +24,7 @@ pipeline {
                 <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
 
                 <h4>Console Output:</h4>
-                <pre>${BUILD_LOG, maxLines=200}</pre>
+                <pre>\${BUILD_LOG, maxLines=200}</pre>
                 """
             )
         }
