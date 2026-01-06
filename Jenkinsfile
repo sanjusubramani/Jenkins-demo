@@ -3,7 +3,7 @@ pipeline {
 
   stages {
     stage('Execute shell script') {
-      setps {
+      steps {
         script{
           sh './script.sh'
         }
